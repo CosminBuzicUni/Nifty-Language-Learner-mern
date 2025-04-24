@@ -14,6 +14,15 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get("/api/user", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json({ success: true, data: users });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+});
+
 app.post("/api/user", async (req, res) => {
     const user = req.body;
 
