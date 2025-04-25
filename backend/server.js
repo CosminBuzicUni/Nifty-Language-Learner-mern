@@ -6,6 +6,7 @@ import userRoutes from "./router/user.route.js";
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
@@ -16,7 +17,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
     connectDB();
   console.log("Server is running on port 5000!");
 });
