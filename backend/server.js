@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import { connect } from "mongoose";
+import { connect, mongo } from "mongoose";
 import { connectDB } from "./config/db.js";
 import User from "./models/user.model.js";
 
@@ -39,6 +39,29 @@ app.post("/api/user", async (req, res) => {
         res.status(500).json({ success: false, message: "Server Error" });
     }
 });
+
+app.put("/api/user/:id", async (req, res) => {
+    const userId = req.params.id;
+    const updatedUser = req.body;
+
+    if(mongoose.Types.ObjectId.isValid(userId) === false) {
+        return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    if(!updatedUser.name || !updatedUser.email || !updatedUser.password) {
+        return res.status(400).json({ success: false, message: "All fields are required" });
+    }
+
+    try {
+        const user = await User.findByIdAndUpdate(userId, updatedUser, { new: true });
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        res.status(200).json({ success: true, data: user });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
+})
 
 app.delete("/api/user/:id", async (req, res) => {
     const userId = req.params.id;
