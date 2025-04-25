@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import mongoose from "mongoose";
+import { validationResult } from "express-validator";
 
 export const getUsers = async (req, res) => {
   try {
@@ -11,6 +12,10 @@ export const getUsers = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ success: false, errors: errors.array() });
+  }
   const user = req.body;
 
   if (!user.name || !user.email || !user.password) {
@@ -28,6 +33,10 @@ export const createUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ success: false, errors: errors.array() });
+  }
   const userId = req.params.id;
   const updatedUser = req.body;
 
