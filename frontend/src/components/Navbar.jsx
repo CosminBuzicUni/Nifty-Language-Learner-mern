@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, Text, Avatar, VStack } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Text, Avatar, VStack, Image, Circle, Link } from "@chakra-ui/react";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -15,23 +15,34 @@ const Navbar = () => {
       <Container maxW="100%" px={6}>
         <Flex justify="space-between" align="center">
           {/* Logo and Title */}
+          
           <Flex align="center">
-            <Box bg="blue.500" w="40px" h="40px" borderRadius="md" mr={2}></Box>
-            <Text fontSize="lg" fontWeight="bold" color="#1DCD9F">
+          <Link href="/">
+            <Circle bg="white" w="50px" h="50px" borderRadius="full" mr={2}>
+              <Image src="\logo.svg" alt="Logo" boxSize="40px" borderRadius="md" />
+            </Circle>
+          </Link>
+          <Link href="/">
+            <Text fontSize="2xl" fontWeight="bold" color="#1DCD9F">
               Nifty Language Learner
             </Text>
+          </Link>
           </Flex>
 
           {/* Buttons */}
           <Flex align="center" gap={4}>
             {!isLoggedIn ? (
               <>
-                <Button variant="solid" bg="#1DCD9F" color="white" _hover={{ bg: "#169976" }}>
-                  Login
-                </Button>
+                <Link href="/login">
+                  <Button variant="solid" bg="#1DCD9F" color="white" _hover={{ bg: "#169976" }}>
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/signUp">
                 <Button variant="solid" bg="#1DCD9F" color="white" _hover={{ bg: "#169976" }}>
                   Sign Up
                 </Button>
+                </Link>
               </>
             ) : (
               <>
