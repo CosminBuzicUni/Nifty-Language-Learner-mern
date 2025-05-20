@@ -52,6 +52,14 @@ const LoginPage = () => {
         >
           Log In
         </Button>
+
+        {/* Keep Me Logged In Option */}
+        <Box width="100%" textAlign="left">
+          <label>
+            <input type="checkbox" style={{ accentColor: "#1DCD9F", marginRight: "8px" }} />
+            Keep me logged in
+          </label>
+        </Box>
       </VStack>
     </Box>
   );
